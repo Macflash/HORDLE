@@ -92,7 +92,7 @@ function GuessResultRow({
   gr,
   onChange,
 }: {
-  onChange: (newGr: GuessResult) => void;
+  onChange?: (newGr: GuessResult) => void;
   gr: GuessResult;
 }) {
   const { guess, result } = gr;
@@ -131,15 +131,15 @@ function GuessResultRow({
               if (r == "Correct") {
                 let newResult = [...result];
                 newResult[index] = "WrongLetter";
-                onChange({ guess, result: newResult });
+                onChange?.({ guess, result: newResult });
               } else if (r == "WrongLetter") {
                 let newResult = [...result];
                 newResult[index] = "WrongLocation";
-                onChange({ guess, result: newResult });
+                onChange?.({ guess, result: newResult });
               } else if (r == "WrongLocation") {
                 let newResult = [...result];
                 newResult[index] = "Correct";
-                onChange({ guess, result: newResult });
+                onChange?.({ guess, result: newResult });
               }
             }}>
             {guess[index]?.toUpperCase()}
@@ -306,14 +306,7 @@ function App() {
           justifyContent: "center",
         }}>
         {guesses.map((gr, index) => (
-          <GuessResultRow
-            gr={gr}
-            onChange={(newGr) => {
-              let newGuesses = [...guesses];
-              newGuesses[index] = newGr;
-              setGuesses(newGuesses);
-            }}
-          />
+          <GuessResultRow gr={gr} />
         ))}
       </div>
 
