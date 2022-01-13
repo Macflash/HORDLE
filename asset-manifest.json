@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/HORDLE/static/css/main.d6fa648e.css",
-    "main.js": "/HORDLE/static/js/main.9a4eb538.js",
+    "main.js": "/HORDLE/static/js/main.4c4cd9b1.js",
     "static/js/787.68f45e23.chunk.js": "/HORDLE/static/js/787.68f45e23.chunk.js",
     "index.html": "/HORDLE/index.html",
     "main.d6fa648e.css.map": "/HORDLE/static/css/main.d6fa648e.css.map",
-    "main.9a4eb538.js.map": "/HORDLE/static/js/main.9a4eb538.js.map",
+    "main.4c4cd9b1.js.map": "/HORDLE/static/js/main.4c4cd9b1.js.map",
     "787.68f45e23.chunk.js.map": "/HORDLE/static/js/787.68f45e23.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d6fa648e.css",
-    "static/js/main.9a4eb538.js"
+    "static/js/main.4c4cd9b1.js"
   ]
 }
