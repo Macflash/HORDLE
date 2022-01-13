@@ -282,6 +282,7 @@ function App() {
         display: "flex",
         flexDirection: "column",
         alignItems: "stretch",
+        userSelect: "none",
       }}>
       <div
         style={{
