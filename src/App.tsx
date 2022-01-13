@@ -254,7 +254,9 @@ function App() {
     EmptyGuess,
   ]);
 
-  const hasLost = currentGuessIndex >= guesses.length;
+  const hasLost =
+    guesses[guesses.length].guess !== word &&
+    currentGuessIndex >= guesses.length;
   if (hasLost) {
     if (!hasLostBefore) {
       setHasLostBefore(true);
