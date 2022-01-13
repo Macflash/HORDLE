@@ -173,21 +173,43 @@ function Keyboard({
     <div>
       {keys.map((row, rowKey) => (
         <div key={rowKey} style={{ display: "flex", justifyContent: "center" }}>
-          {row.map((key) => (
-            <div
-              onClick={() => onKey(key)}
-              key={key}
-              style={{
-                margin: 6,
-                padding: "20px 10px",
-                borderRadius: 4,
-                fontWeight: "bold",
-                cursor: "pointer",
-                background: LIGHT_GREY,
-              }}>
-              {key.toUpperCase()}
-            </div>
-          ))}
+          {row.map((key) => {
+            const isSpecialKey = key == "ENTER" || key == "DELETE";
+            let extras: React.CSSProperties = {};
+            if (isSpecialKey) {
+              extras = {
+                flex: "auto",
+                justifyContent: "center",
+                textAlign: "center",
+                alignItems: "center",
+                display: "flex",
+                padding: 0,
+                maxWidth: 80,
+              };
+            }
+            return (
+              <div
+                onClick={() => onKey(key)}
+                key={key}
+                style={{
+                  margin: 6,
+                  padding: "20px 5px",
+                  borderRadius: 4,
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  background: LIGHT_GREY,
+                  maxWidth: 25,
+                  flex: "auto",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  alignItems: "center",
+                  display: "flex",
+                  ...extras,
+                }}>
+                {key.toUpperCase()}
+              </div>
+            );
+          })}
         </div>
       ))}
     </div>
