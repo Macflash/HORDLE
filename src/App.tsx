@@ -238,6 +238,12 @@ const EmptyGuess: GuessResult = {
   result: EmptyResult,
 };
 
+var handleKeyFunction = (key: string) => {};
+
+window.addEventListener("keydown", (ev) => {
+  handleKeyFunction(ev.key);
+});
+
 function App() {
   const word = "hodor";
 
@@ -255,7 +261,7 @@ function App() {
   ]);
 
   const hasLost =
-    guesses[guesses.length].guess !== word &&
+    guesses[guesses.length]?.guess !== word &&
     currentGuessIndex >= guesses.length;
   if (hasLost) {
     if (!hasLostBefore) {
@@ -273,6 +279,49 @@ function App() {
     newGuesses[currentGuessIndex] = { guess: newGuess, result };
     setGuesses(newGuesses);
   }
+
+  function handleKey(key: string) {
+    console.log(key);
+    switch (key) {
+      case "ENTER":
+      case "Enter":
+        if (currentGuess.length == 5) {
+          if (currentGuess === word) {
+            setHasWon(true);
+            setTimeout(() => alert("You won!"), 100);
+          } else if (!all_valid_wordle_guesses.includes(currentGuess)) {
+            alert(
+              currentGuess.toUpperCase() + " was not found in our dictionary."
+            );
+            updateCurrentGuess("");
+            return;
+          }
+          const { guess, result } = CreateGuessResult(
+            currentGuess.toLowerCase(),
+            word
+          );
+          updateCurrentGuess(guess, result);
+        }
+        break;
+      case "DELETE":
+      case "Backspace":
+        if (currentGuess.length > 0) {
+          updateCurrentGuess(
+            currentGuess.substring(0, currentGuess.length - 1)
+          );
+        }
+        break;
+      default:
+        if (key.length > 1 || !/^[a-z]+$/i.test(key)) {
+          return;
+        }
+        if (currentGuess.length < 5) {
+          updateCurrentGuess(currentGuess + key);
+        }
+    }
+  }
+
+  handleKeyFunction = handleKey;
 
   return (
     <div
@@ -313,44 +362,7 @@ function App() {
         ))}
       </div>
 
-      <Keyboard
-        guesses={guesses}
-        onKey={(key) => {
-          switch (key) {
-            case "ENTER":
-              if (currentGuess.length == 5) {
-                if (currentGuess === word) {
-                  setHasWon(true);
-                  setTimeout(() => alert("You won!"), 100);
-                } else if (!all_valid_wordle_guesses.includes(currentGuess)) {
-                  alert(
-                    currentGuess.toUpperCase() +
-                      " was not found in our dictionary."
-                  );
-                  updateCurrentGuess("");
-                  return;
-                }
-                const { guess, result } = CreateGuessResult(
-                  currentGuess.toLowerCase(),
-                  word
-                );
-                updateCurrentGuess(guess, result);
-              }
-              break;
-            case "DELETE":
-              if (currentGuess.length > 0) {
-                updateCurrentGuess(
-                  currentGuess.substring(0, currentGuess.length - 1)
-                );
-              }
-              break;
-            default:
-              if (currentGuess.length < 5) {
-                updateCurrentGuess(currentGuess + key);
-              }
-          }
-        }}
-      />
+      <Keyboard guesses={guesses} onKey={handleKey} />
     </div>
   );
 }
