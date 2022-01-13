@@ -169,11 +169,20 @@ function Keyboard({
   guesses: GuessResult[];
   onKey: (key: string) => void;
 }) {
+  const deadLetters = getDeadLetters(guesses);
+  const yellowLetters = getYellowLetters(guesses);
+  const greenLetters = getGreenLetters(guesses);
+
   return (
     <div>
       {keys.map((row, rowKey) => (
         <div key={rowKey} style={{ display: "flex", justifyContent: "center" }}>
           {row.map((key) => {
+            let color = LIGHT_GREY;
+            if (deadLetters.has(key)) color = DARK_GREY;
+            if (yellowLetters.has(key)) color = YELLOW;
+            if (greenLetters.has(key)) color = GREEN;
+
             const isSpecialKey = key == "ENTER" || key == "DELETE";
             let extras: React.CSSProperties = {};
             if (isSpecialKey) {
@@ -192,12 +201,12 @@ function Keyboard({
                 onClick={() => onKey(key)}
                 key={key}
                 style={{
+                  background: color,
                   margin: 6,
                   padding: "20px 5px",
                   borderRadius: 4,
                   fontWeight: "bold",
                   cursor: "pointer",
-                  background: LIGHT_GREY,
                   maxWidth: 25,
                   flex: "auto",
                   justifyContent: "center",
