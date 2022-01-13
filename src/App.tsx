@@ -125,6 +125,7 @@ function GuessResultRow({
               background: color,
               fontWeight: "bold",
               fontSize: 32,
+              flex: "auto",
             }}
             onClick={() => {
               if (r == "Correct") {
@@ -259,7 +260,11 @@ function App() {
           marginBottom: 2,
           fontKerning: "auto",
         }}>
-        HORDLE
+        <a
+          style={{ color: WHITE, textDecoration: "none" }}
+          href='https://github.com/Macflash/HORDLE'>
+          HORDLE
+        </a>
       </div>
       <div
         style={{
